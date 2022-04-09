@@ -8,3 +8,5 @@ api-gateway/.env
 forecast-ms/node_modules/
 
 forecast-ms/dist/
+
+forecast-ui/.vscode/
