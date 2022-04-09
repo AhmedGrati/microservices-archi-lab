@@ -1,5 +1,7 @@
 
 security-ms/node_modules/
-
 security-ms/dist/
 security-ms/.env
+api-gateway/node_modules/
+api-gateway/dist/
+api-gateway/.env

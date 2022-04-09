@@ -1,12 +1,20 @@
+import { Options } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 import { TransformInterceptor } from './common/transform.interceptor';
 
-const port = process.env.PORT || 3000;
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix("api");
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.REDIS,
+      options: {
+        url: 'redis://localhost:6379',
+      }
+    },
+  );
   app.useGlobalInterceptors(new TransformInterceptor());
-  await app.listen(port);
+  await app.listen();
 }
 bootstrap();
