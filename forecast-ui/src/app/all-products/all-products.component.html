@@ -1,1 +1,24 @@
-<p>all-products works!</p>
+<div class="container">
+<h2 class="text-primary">Available Products</h2>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Description</th>
+    <th scope="col">StoreName</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products; index as i">
+    <td>{{ product?.name }}</td>
+    <td>{{ product?.description }}</td>
+    <td>{{ product?.storeName }}</td>
+    <td>
+        <button class="btn btn-info" (click)="redirectForecast(product)">Forecast</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>

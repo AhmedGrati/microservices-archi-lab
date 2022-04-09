@@ -10,13 +10,13 @@ import { RegistrationInput } from '../models/registration.dto';
 })
 export class AuthService {
 
-  BACKEND_BASE_URL = "localhost:3000";
+  BACKEND_BASE_URL = "http://localhost:3000";
   constructor(private httpClient: HttpClient) { }
   login(loginDTO: LoginDTO): Observable<any> {
-    return this.httpClient.post<any>(`http://${this.BACKEND_BASE_URL}/api/auth/login`, loginDTO);
+    return this.httpClient.post<any>(`${this.BACKEND_BASE_URL}/api/auth/login`, loginDTO);
   }
   register(registrationInput: RegistrationInput): Observable<any> {
-    return this.httpClient.post<any>(`http://${this.BACKEND_BASE_URL}/api/auth/register`, registrationInput);
+    return this.httpClient.post<any>(`${this.BACKEND_BASE_URL}/api/auth/register`, registrationInput);
   }
 
 }

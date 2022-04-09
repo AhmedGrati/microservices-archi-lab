@@ -9,7 +9,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AllProductsComponent } from './all-products/all-products.component';
 import { ForecastComponent } from './forecast/forecast.component';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,11 @@ import { ForecastComponent } from './forecast/forecast.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxEchartsModule.forRoot({
+      echarts
+    }),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

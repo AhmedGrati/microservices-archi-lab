@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Product } from '../shared/models/product';
+import { ForecastService } from '../shared/services/forecast.service';
 
 @Component({
   selector: 'app-all-products',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllProductsComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private readonly forecastService: ForecastService, private router: Router) { }
+  products: Product[];
   ngOnInit(): void {
+    this.forecastService.getAllProducts()
+      .subscribe((data) => {
+        this.products = data;
+      })
   }
+
+  redirectForecast(product) {
+    console.log(product);
+    this.router.navigate([`/forecast/${product.name}`])
+  }
+
 
 }

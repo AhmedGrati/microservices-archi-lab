@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'all-products', component: AllProductsComponent},
-  { path: 'forecast', component: ForecastComponent},
+  { path: 'forecast/:name', component: ForecastComponent},
   { path: '**', redirectTo: ''}
 ];
 
