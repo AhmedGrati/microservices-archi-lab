@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { CredentialsInput } from './dto/credentials.input';
 import { PayloadInterface } from './dto/payload.interface';
@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { TokenModel } from './dto/token.model';
 import { RegisterInput } from './dto/register.input';
+import { ErrorResponse } from './dto/error.response';
 @Injectable()
 export class AuthService {
   
@@ -14,13 +15,16 @@ export class AuthService {
   async generateJwtToken(payload: PayloadInterface) {
     return await this.jwtService.sign(payload);
   }
-  async login(credentials: CredentialsInput): Promise<TokenModel> {
+  async login(credentials: CredentialsInput): Promise<TokenModel | ErrorResponse> {
     const {email, password} = credentials;
     const user = await this.userService.findOneByEmail(email)
 
     // if the user is null is means that we don't have any user with that email or password
     if (!user) {
-      throw new NotFoundException("USER DOES NOT EXIST");
+      return {
+        message: "USER DOES NOT EXIST",
+        status: HttpStatus.NOT_FOUND
+      }
     } else {
       // if we get the user
       const hashedPassword = await bcrypt.hash(password, user.salt);
@@ -41,7 +45,10 @@ export class AuthService {
         };
       } else {
         // if the password is not equal to user.password that means that the credentials are not true
-        throw new NotFoundException("EMAIL AND PASSWORD DOES NOT MATCH");
+        return {
+          message: "MISMATCH BETWEEN EMAIL AND PASSWORD! RETRY LATER!",
+          status: HttpStatus.FORBIDDEN
+        }
       }
     }
   }
