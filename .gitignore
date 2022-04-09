@@ -5,3 +5,6 @@ security-ms/.env
 api-gateway/node_modules/
 api-gateway/dist/
 api-gateway/.env
+forecast-ms/node_modules/
+
+forecast-ms/dist/

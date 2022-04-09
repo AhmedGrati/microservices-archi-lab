@@ -15,4 +15,8 @@ export class AppController {
   register(@Body() registerInput: RegisterInput,@Res() response) {
     return this.appService.register(registerInput, response);
   }
+  @Get('/forecast/all-products')
+  getAllProducts(@Res() response) {
+    return this.appService.getAllProducts(response);
+  }
 }

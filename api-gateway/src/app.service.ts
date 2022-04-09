@@ -20,4 +20,11 @@ export class AppService {
     return this.securityClient.send('register', registerInput)
             .subscribe((data) => response.status(HttpStatus.OK).send(data))
   }
+  async getAllProducts(response: Response) {
+    return this.securityClient.send('get_all_products',{})
+            .subscribe((data) => response.status(HttpStatus.OK).send(data))
+  }
+
+
+
 }
