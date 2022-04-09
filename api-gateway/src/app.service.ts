@@ -25,6 +25,12 @@ export class AppService {
             .subscribe((data) => response.status(HttpStatus.OK).send(data))
   }
 
+  async forecast(response: Response) {
+    return this.securityClient.send('forecast',{})
+            .subscribe((data) => response.status(HttpStatus.OK).send(data))
+
+  }
+
 
 
 }

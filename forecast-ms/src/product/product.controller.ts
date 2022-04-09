@@ -11,6 +11,11 @@ export class ProductController {
   getAllProducts() {
     return this.productService.getAllProducts();
   }
+
+  @EventPattern("forecast")
+  forecast() {
+    return this.productService.forecastOnOneYear();
+  }
   
   
 }

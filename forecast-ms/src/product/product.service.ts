@@ -20,5 +20,14 @@ export class ProductService {
         );
         return Promise.all(products);
     }
+
+    async forecastOnOneYear() {
+        const results = Array.from({length: 12}).map<Number> (
+            (_, i) => {
+                return faker.random.number({min: 100, max: 500});
+            }
+        )
+        return Promise.all(results);
+    }
   
 }

@@ -19,4 +19,8 @@ export class AppController {
   getAllProducts(@Res() response) {
     return this.appService.getAllProducts(response);
   }
+  @Get('/forecast/')
+  forecast(@Res() response) {
+    return this.appService.forecast(response);
+  }
 }
