@@ -3,6 +3,8 @@ import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+import * as dotenv from 'dotenv';
+dotenv.config()
 @Module({
   imports: [],
   controllers: [AppController],
@@ -13,7 +15,7 @@ import { AppService } from './app.service';
         ClientProxyFactory.create({
           transport: Transport.REDIS,
           options: {
-            url: 'redis://localhost:6379',
+            url: `redis://${process.env.REDIS_QUEUE_HOST}:${+process.env.REDIS_QUEUE_PORT}`,
           },
         }),
     },

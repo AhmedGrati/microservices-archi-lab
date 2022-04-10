@@ -10,3 +10,7 @@ forecast-ms/node_modules/
 forecast-ms/dist/
 
 forecast-ui/.vscode/
+redis-data
+redis.conf
+
+*.rdb

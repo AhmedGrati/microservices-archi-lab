@@ -1,0 +1,71 @@
+version: '3.7'
+
+services:
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./api-gateway
+    volumes:
+      - ./api-gateway:/usr/src/app
+    ports:
+      - 3000:3000
+    command: npm run start:dev
+    env_file:
+      - ./api-gateway/.env
+    networks:
+      - webnet
+    depends_on:
+      - postgres
+      - redis
+  security-ms:
+    container_name: security-ms
+    build:
+      context: ./security-ms
+    volumes:
+      - ./security-ms:/usr/src/app
+    command: npm run start:dev
+    env_file:
+      - ./security-ms/.env
+    networks:
+      - webnet
+    depends_on:
+      - postgres
+  forecast-ms:
+    container_name: forecast-ms
+    build:
+      context: ./forecast-ms
+    volumes:
+      - ./forecast-ms:/usr/src/app
+    command: npm run start:dev
+    env_file:
+      - ./forecast-ms/.env
+    networks:
+      - webnet
+  postgres:
+    container_name: postgres
+    image: postgres:12
+    networks:
+      - webnet
+    env_file:
+      - ./security-ms/.env
+    ports:
+      - 5431:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  redis:
+    container_name: redis
+    image: 'redis:alpine'
+    command:
+      - redis-server
+    networks:
+      - webnet
+    ports:
+      - 6379:6379
+    volumes:
+      - $PWD/redis-data:/var/lib/redis
+      - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+
+networks:
+  webnet:
+volumes:
+  pgdata:
