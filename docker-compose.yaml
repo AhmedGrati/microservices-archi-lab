@@ -17,6 +17,8 @@ services:
     depends_on:
       - postgres
       - redis
+      - security-ms
+      - forecast-ms
   security-ms:
     container_name: security-ms
     build:
@@ -41,6 +43,16 @@ services:
       - ./forecast-ms/.env
     networks:
       - webnet
+  forecast-ui:
+    container_name: forecast-ui
+    build:
+      context: ./forecast-ui
+    ports:
+      - 8081:80
+    networks:
+      - webnet
+    depends_on:
+      - api-gateway
   postgres:
     container_name: postgres
     image: postgres:12
